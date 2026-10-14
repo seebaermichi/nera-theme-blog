@@ -1,0 +1,27 @@
+# nera-theme-blog/config/theme.yaml — defaults
+label: Blog
+tokens:
+    color:
+        bg: '#fbf9f4'
+        surface: '#f1ece1'
+        text: '#24211d'
+        muted: '#5c574f'
+        accent: '#8c3a12'
+        accent_text: '#ffffff'
+        border: '#ddd5c6'
+        focus: '#1a5aa6'
+    font:
+        body: "Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif"
+        heading: "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+        mono: "ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace"
+    size:
+        base: '1.1875rem'
+        measure: '38rem'
+        width: '46rem'
+        radius: '0'
+        space: '1.75rem'
+extra_css: []
+footer_links: []
+blog:
+    post_layouts: ['pages/post.pug']
+    home_posts: 10
