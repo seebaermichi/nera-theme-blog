@@ -1,0 +1,3 @@
+tag_overview_layout: 'pages/tag.pug'
+# One tag namespace per language: German tag pages under /de/tags/.
+group_by_lang: true

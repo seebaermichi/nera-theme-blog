@@ -1,0 +1,4 @@
+# The post image is the hero, rendered eagerly through the post-media seam.
+eager_first: false
+widths: [480, 800]
+og: false

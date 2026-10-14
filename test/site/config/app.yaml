@@ -1,0 +1,28 @@
+# The acceptance site of @nera-static/theme-blog (ROADMAP-themes §S7): the blog
+# starter's page set in English and German, the theme used by local path.
+lang: en
+name: Quiet Notes
+robots: index,follow
+theme: ../..
+
+translations:
+    en:
+        language_name: English
+    de:
+        language_name: Deutsch
+        # theme keys (§S2.6, §S4.3)
+        Skip to content: Zum Inhalt springen
+        Main navigation: Hauptnavigation
+        Language: Sprache
+        Legal: Rechtliches
+        Recent posts: Neueste Beiträge
+        All posts: Alle Beiträge
+        Published: Veröffentlicht
+        Updated: Aktualisiert
+        By: Von
+        # footer_links labels (config/theme.yaml)
+        Imprint: Impressum
+        Privacy: Datenschutz
+        # plugin keys: plugin-page-pagination, plugin-tags
+        Pagination: Blätternavigation
+        Read more: Weiterlesen

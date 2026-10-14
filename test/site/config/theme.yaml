@@ -1,0 +1,7 @@
+# Site overrides of the theme's config/theme.yaml (deep-merged, arrays replaced).
+extra_css: ['/_nera/code-blocks.css']
+footer_links:
+    - label: Imprint
+      href: { en: /imprint.html, de: /de/impressum.html }
+    - label: Privacy
+      href: { en: /privacy.html, de: /de/datenschutz.html }

@@ -1,0 +1,15 @@
+{
+    "name": "nera-theme-blog-fixture",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "The acceptance site of @nera-static/theme-blog (ROADMAP-themes §S7). The plugins are listed here only so core discovers them; they are installed as devDependencies of the repo root.",
+    "dependencies": {
+        "@nera-static/plugin-code-blocks": "^1.2.1",
+        "@nera-static/plugin-images": "^1.0.2",
+        "@nera-static/plugin-navigation": "^3.1.0",
+        "@nera-static/plugin-page-pagination": "^2.4.0",
+        "@nera-static/plugin-social-media-links": "^2.3.0",
+        "@nera-static/plugin-tags": "^3.3.0"
+    }
+}
