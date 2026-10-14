@@ -1,0 +1,70 @@
+// §S7 "Package": the tarball and the package.json fields of §S2.1 / §S4.5.
+import fs from 'fs'
+import path from 'path'
+import { execFileSync } from 'child_process'
+import { describe, expect, it } from 'vitest'
+import { PLUGINS, ROOT, SITE } from './helpers/site.js'
+import { PLUGIN_CLASSES } from './helpers/contract.js'
+
+const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8'))
+
+describe('Package', () => {
+    it('npm pack lists only package.json, README.md, LICENSE and files under views/, assets/, config/', () => {
+        const [report] = JSON.parse(
+            execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], {
+                cwd: ROOT,
+                encoding: 'utf-8',
+                stdio: ['ignore', 'pipe', 'ignore'],
+            })
+        )
+        const files = report.files.map((file) => file.path).sort()
+
+        expect(files).toContain('package.json')
+        expect(files).toContain('README.md')
+        expect(files).toContain('LICENSE')
+        for (const file of files) {
+            expect(file).toMatch(/^(package\.json|README\.md|LICENSE|(views|assets|config)\/.+)$/)
+            expect(file.startsWith('views/vendor/')).toBe(false)
+            expect(file.endsWith('.js')).toBe(false)
+        }
+    })
+
+    it('has the fields of §S2.1 with the exact values', () => {
+        expect(pkg.name).toBe('@nera-static/theme-blog')
+        expect(pkg.version).toBe('1.0.0')
+        expect(pkg.type).toBe('module')
+        expect(pkg.license).toBe('MIT')
+        expect(pkg.description).toBeTruthy()
+        expect(pkg.keywords).toEqual(['nera', 'nera-theme'])
+        expect(pkg.files).toEqual(['views', 'assets', 'config'])
+        expect(pkg.exports).toEqual({ './package.json': './package.json' })
+        expect(pkg.engines).toEqual({ node: '^20.19.0 || >=22.0.0' })
+        expect(pkg.nera).toEqual({ generator: '>=4.15.0' })
+        expect(pkg.publishConfig).toEqual({ access: 'public' })
+        expect(pkg.repository.url).toBe('git+https://github.com/seebaermichi/nera-theme-blog.git')
+        expect(pkg.bugs.url).toBe('https://github.com/seebaermichi/nera-theme-blog/issues')
+        expect(pkg.homepage).toBe('https://github.com/seebaermichi/nera-theme-blog#readme')
+        expect(pkg.dependencies).toBeUndefined()
+    })
+
+    it('declares every plugin of §S4.5 as an optional peer at the decided range', () => {
+        const expected = Object.fromEntries(
+            Object.entries(PLUGIN_CLASSES).map(([name, { range }]) => [name, range])
+        )
+        expect(pkg.peerDependencies).toEqual(expected)
+        expect(Object.keys(pkg.peerDependenciesMeta).sort()).toEqual(Object.keys(expected).sort())
+        for (const meta of Object.values(pkg.peerDependenciesMeta)) {
+            expect(meta).toEqual({ optional: true })
+        }
+    })
+
+    it('installs the peers as devDependencies at the same ranges, and the fixture names them', () => {
+        const site = JSON.parse(fs.readFileSync(path.join(SITE, 'package.json'), 'utf-8'))
+        expect(Object.keys(pkg.peerDependencies).sort()).toEqual([...PLUGINS].sort())
+        for (const [name, range] of Object.entries(pkg.peerDependencies)) {
+            expect(pkg.devDependencies[name]).toBe(range)
+            expect(site.dependencies[name]).toBe(range)
+        }
+        expect(pkg.devDependencies['@nera-static/nera']).toBe('^1.11.1')
+    })
+})
