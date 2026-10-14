@@ -1,0 +1,17 @@
+//- The front page (§S4.1): header, body, the newest `blog.home_posts` posts,
+//- a link to the archive (`archive_href`), the tag-cloud seam.
+extends ../layouts/layout.pug
+
+block main
+    include ../partials/page-header.pug
+    .page__body
+        != content
+    section.post-list
+        h2.post-list__title= t('Recent posts')
+        if themeBlog.homePosts(pageLang({ meta })).length
+            ol.post-list__items
+                each item in themeBlog.homePosts(pageLang({ meta }))
+                    include ../partials/post-card.pug
+        if meta.archive_href
+            a.post-list__more(href=meta.archive_href)= t('All posts')
+    include ../partials/tag-cloud.pug

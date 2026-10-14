@@ -1,0 +1,11 @@
+//- One post in a list (§S4.1a). `item` is the post ({ content, meta }).
+li.post-list__item
+    article.post-card
+        .post-card__media
+            include card-media.pug
+        h3.post-card__title
+            a.post-card__link(href=item.meta.href)= item.meta.title
+        if isoDate(item.meta.createdAt)
+            time.post-card__date(datetime=isoDate(item.meta.createdAt))= formatDate(item.meta.createdAt, pageLang(item))
+        if item.meta.description
+            p.post-card__excerpt= item.meta.description

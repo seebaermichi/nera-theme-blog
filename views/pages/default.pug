@@ -1,0 +1,7 @@
+//- About, legal pages, any standard page (§S4.1): header, body.
+extends ../layouts/layout.pug
+
+block main
+    include ../partials/page-header.pug
+    .page__body
+        != content

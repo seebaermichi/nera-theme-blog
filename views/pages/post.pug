@@ -1,0 +1,32 @@
+//- One post (§S4.1): header with date, update, author and lead; the
+//- post-media seam; the body; the post-tags and post-pagination seams.
+extends ../layouts/layout.pug
+
+block main
+    article.post
+        header.post__header
+            h1.post__title= meta.title || app.name
+            p.post__meta
+                if isoDate(meta.createdAt)
+                    span
+                        | #{t('Published')}#{' '}
+                        time.post__date(datetime=isoDate(meta.createdAt))= formatDate(meta.createdAt, pageLang({ meta }))
+                if isoDate(meta.updated)
+                    span
+                        | #{t('Updated')}#{' '}
+                        time.post__updated(datetime=isoDate(meta.updated))= formatDate(meta.updated, pageLang({ meta }))
+                if meta.author
+                    span
+                        | #{t('By')}#{' '}
+                        span.post__author= meta.author
+            if meta.lead
+                p.post__lead= meta.lead
+        .post__media
+            include ../partials/post-media.pug
+        .post__body.nera-code-scope
+            != content
+        footer.post__footer
+            .post__tags
+                include ../partials/post-tags.pug
+            .post__pagination
+                include ../partials/post-pagination.pug

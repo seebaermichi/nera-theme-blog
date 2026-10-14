@@ -1,0 +1,8 @@
+//- The tag pages @nera-static/plugin-tags generates (§S4.1); set
+//- `tag_overview_layout: 'pages/tag.pug'` in config/tags.yaml. The
+//- tag-overview seam owns the <h1>.
+extends ../layouts/layout.pug
+
+block main
+    section.tag-page
+        include ../partials/tag-overview.pug

@@ -1,0 +1,17 @@
+//- All posts (§S4.1): header, body, one section per year (newest first),
+//- the tag-cloud seam.
+extends ../layouts/layout.pug
+
+block main
+    include ../partials/page-header.pug
+    .page__body
+        != content
+    each group in themeBlog.postsByYear(pageLang({ meta }))
+        section.post-archive__year
+            h2= group.year
+            ul.post-archive__list
+                each item in group.posts
+                    li.post-archive__item
+                        time(datetime=isoDate(item.meta.createdAt))= formatDate(item.meta.createdAt, pageLang(item))
+                        a(href=item.meta.href)= item.meta.title
+    include ../partials/tag-cloud.pug

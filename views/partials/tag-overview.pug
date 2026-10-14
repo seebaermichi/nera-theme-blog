@@ -1,0 +1,8 @@
+//- Seam (§S4.2): section.tag-page, the tag pages of @nera-static/plugin-tags.
+//- In scope: meta, app. It owns the page's <h1>. A site with the plugin
+//- overrides it with:
+//-     include /vendor/plugin-tags/pages/tag-overview
+//- Without the plugin: the page title and body.
+h1.page__title= meta.title || app.name
+.page__body
+    != content

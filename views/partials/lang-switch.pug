@@ -1,0 +1,11 @@
+//- The language switch (§S2.8), shown when app.translations has two or more
+//- languages. Each language is named by its own `language_name` translation.
+if Object.keys(app.translations || {}).length >= 2
+    nav.lang-switch(aria-label=t('Language'))
+        ul.lang-switch__list
+            each link in themeBlog.languageLinks(pageLang({ meta }))
+                li.lang-switch__item
+                    if link.current
+                        span.lang-switch__link(aria-current='true' lang=link.code)= link.name
+                    else
+                        a.lang-switch__link(href=link.href hreflang=link.code lang=link.code)= link.name

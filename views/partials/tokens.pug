@@ -1,0 +1,21 @@
+//- The design tokens of config/theme.yaml as --theme-* custom properties
+//- (§S2.5), in one inline <style>. A value is emitted only if it is a string
+//- or number without `<`, `>`, `{`, `}` or `;`, and a group or token name
+//- only if it is made of letters, digits, `-` and `_`, so nothing in the YAML
+//- can break out of the rule.
+-
+    const themeTokenRule = (() => {
+        const tokens = (app.theme && app.theme.config && app.theme.config.tokens) || {}
+        const safe = (v) => ['string', 'number'].includes(typeof v) && !/[<>{};]/.test(String(v))
+        const safeName = (n) => /^[A-Za-z0-9_-]+$/.test(n)
+        const decls = []
+        for (const [group, values] of Object.entries(tokens)) {
+            if (!values || typeof values !== 'object' || !safeName(group)) continue
+            for (const [name, value] of Object.entries(values)) {
+                if (safeName(name) && safe(value)) decls.push(`--theme-${group}-${name.replace(/_/g, '-')}:${value};`)
+            }
+        }
+        return decls.length ? `:root{${decls.join('')}}` : ''
+    })()
+if themeTokenRule
+    style!= themeTokenRule
