@@ -67,8 +67,9 @@ this way) to a theme; copy it for `nera-theme-business` and swap the names.
 
 - Browser tooling: Playwright MCP (`mcp__playwright__browser_navigate`,
   `mcp__playwright__browser_snapshot`, `mcp__playwright__browser_console_messages`).
-- Boot (the fixture site, theme by local path):
-  `cd test/site && npm install && npx nera build && npx nera serve --port 3125`
+- Boot (the fixture site, theme by local path; its plugins and `nera` come from
+  the repo root's `node_modules`, no install inside `test/site`):
+  `npm ci && cd test/site && npx nera build && npx nera serve --port 3125`
   (Node 22 if npm crashes: `PATH=~/.nvm/versions/node/v22.22.0/bin:$PATH`).
 - Base URL / login: http://localhost:3125/, no login.
 - Surfaces:
