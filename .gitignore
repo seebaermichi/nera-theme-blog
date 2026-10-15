@@ -40,3 +40,4 @@ build/
 # Build output and cache of the fixture site (test/site, ROADMAP-themes §S7)
 test/site/public/
 .nera-cache/
+plans/
