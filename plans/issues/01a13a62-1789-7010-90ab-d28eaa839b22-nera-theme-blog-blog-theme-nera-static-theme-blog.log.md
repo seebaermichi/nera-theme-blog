@@ -97,3 +97,11 @@ User chose option 2 (fix everything, file nothing).
 - 3 already settled in core 4.16.2 (a0d637a): js-beautify 2 chosen over glob@10 deprecation, EBADENGINE documented as harmless. No change.
 - 4 Node 20 dropped from all 27 fleet test.yml matrices → [22, 24], `engines` unchanged, no releases; every repo's CI commands pass on Node 24.21.0; nera-website deploy.yml 20 → 24.
 - 5 spec note + two §S2 rules in generator/ROADMAP-themes.md (a84fa3a).
+
+## Release (2026-10-15)
+
+- 1.0.0 published by hand (user); Trusted Publisher configured.
+- v1.0.1 CI publish failed: package test under npm 12 (`npm pack --json` is an object keyed by name). Moving the tag was refused (destructive), so the fix shipped as 1.0.2.
+- 1.0.2 published by CI OIDC 2026-10-15 (Trusted Publisher validated): plugin-feed override documented for the `feed-link` seam, test reads the version from the CHANGELOG and accepts both pack JSON shapes.
+- Along the way: core 4.16.3 (CI), plugin-feed 1.0.2 (README, CI), Node 20 dropped from 27 fleet CI matrices, nera.js.org redeployed (Node 24). Spec notes: generator ROADMAP-themes §S4, nera-cli ROADMAP-ai slice 5.
+- GitHub: ruleset, secret scanning, private vulnerability reporting, sponsorships on.
