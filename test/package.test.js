@@ -10,13 +10,16 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8')
 
 describe('Package', () => {
     it('npm pack lists only package.json, README.md, LICENSE and files under views/, assets/, config/', () => {
-        const [report] = JSON.parse(
+        // npm ≤ 11 prints an array of reports, npm 12 an object keyed by
+        // package name (the publish workflow installs npm@latest).
+        const reports = JSON.parse(
             execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], {
                 cwd: ROOT,
                 encoding: 'utf-8',
                 stdio: ['ignore', 'pipe', 'ignore'],
             })
         )
+        const [report] = Array.isArray(reports) ? reports : Object.values(reports)
         const files = report.files.map((file) => file.path).sort()
 
         expect(files).toContain('package.json')
