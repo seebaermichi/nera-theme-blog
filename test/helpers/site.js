@@ -100,6 +100,9 @@ export const VARIANTS = {
     },
     // Subdirectory deploy.
     sub: (site) => appendYaml(site, 'app.yaml', 'base_path: /sub'),
+    // Two translations entries but pages in one language only (what
+    // `nera new --lang` leaves behind): no other language to link.
+    onelang: (site) => fs.rmSync(path.join(site, 'pages', 'de'), { recursive: true, force: true }),
 }
 
 // Build one variant: copy, mutate, `nera build`, then `nera validate --json`

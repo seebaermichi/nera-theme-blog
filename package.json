@@ -1,15 +1,28 @@
 {
     "name": "@nera-static/theme-blog",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Nera theme for personal and team blogs — presentation only.",
     "type": "module",
     "license": "MIT",
     "author": "Michael Becker",
-    "keywords": ["nera", "nera-theme"],
-    "files": ["views", "assets", "config"],
-    "exports": { "./package.json": "./package.json" },
-    "engines": { "node": "^20.19.0 || >=22.0.0" },
-    "nera": { "generator": ">=4.15.0" },
+    "keywords": [
+        "nera",
+        "nera-theme"
+    ],
+    "files": [
+        "views",
+        "assets",
+        "config"
+    ],
+    "exports": {
+        "./package.json": "./package.json"
+    },
+    "engines": {
+        "node": "^20.19.0 || >=22.0.0"
+    },
+    "nera": {
+        "generator": ">=4.15.0"
+    },
     "scripts": {
         "lint": "eslint .",
         "test": "vitest"
@@ -23,12 +36,24 @@
         "@nera-static/plugin-tags": "^3.3.0"
     },
     "peerDependenciesMeta": {
-        "@nera-static/plugin-code-blocks": { "optional": true },
-        "@nera-static/plugin-images": { "optional": true },
-        "@nera-static/plugin-navigation": { "optional": true },
-        "@nera-static/plugin-page-pagination": { "optional": true },
-        "@nera-static/plugin-social-media-links": { "optional": true },
-        "@nera-static/plugin-tags": { "optional": true }
+        "@nera-static/plugin-code-blocks": {
+            "optional": true
+        },
+        "@nera-static/plugin-images": {
+            "optional": true
+        },
+        "@nera-static/plugin-navigation": {
+            "optional": true
+        },
+        "@nera-static/plugin-page-pagination": {
+            "optional": true
+        },
+        "@nera-static/plugin-social-media-links": {
+            "optional": true
+        },
+        "@nera-static/plugin-tags": {
+            "optional": true
+        }
     },
     "devDependencies": {
         "@nera-static/nera": "^1.11.1",
@@ -41,8 +66,15 @@
         "eslint": "^10.12.0",
         "vitest": "^5.0.3"
     },
-    "publishConfig": { "access": "public" },
-    "repository": { "type": "git", "url": "git+https://github.com/seebaermichi/nera-theme-blog.git" },
-    "bugs": { "url": "https://github.com/seebaermichi/nera-theme-blog/issues" },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/seebaermichi/nera-theme-blog.git"
+    },
+    "bugs": {
+        "url": "https://github.com/seebaermichi/nera-theme-blog/issues"
+    },
     "homepage": "https://github.com/seebaermichi/nera-theme-blog#readme"
 }

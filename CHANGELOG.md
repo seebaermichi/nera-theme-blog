@@ -2,6 +2,12 @@
 
 All notable changes to `@nera-static/theme-blog` are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and the theme follows [semantic versioning](https://semver.org/) over its contract (see the README).
 
+## [1.0.3] - 2026-10-15
+
+### Fixed
+
+-   The language switch is no longer rendered when no other language has a page to link. A site with two `translations` entries but pages in one language only (what `nera new --starter blog --lang de` leaves: a `de` entry copied from `en`, and `en` kept) showed a switch with a single, current item.
+
 ## [1.0.2] - 2026-10-15
 
 ### Changed

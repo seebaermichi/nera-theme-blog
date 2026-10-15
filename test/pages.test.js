@@ -41,6 +41,12 @@ describe('Every built page', () => {
         expect(attr(tagLinks[0], 'href')).toBe('/de/index.html')
     })
 
+    it('shows no language switch when no other language has a page', () => {
+        for (const { file, html } of pages(builds.onelang.public)) {
+            expect(html, file).not.toContain('lang-switch')
+        }
+    })
+
     it('labels every <nav>, and translates the theme\'s strings on German pages', () => {
         for (const { file, html } of pages(builds.default.public)) {
             for (const attrs of tags(html, 'nav')) expect(attr(attrs, 'aria-label'), file).toBeTruthy()

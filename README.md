@@ -238,7 +238,7 @@ translations:
 | `Published`, `Updated`, `By` | a post's meta line |
 | `language_name` | each language's own name in the language switch (falls back to the upper-case code) |
 
-The language switch appears when `translations` has two or more languages. For each other language it links the page with the same `slug` in that language, else that language's home page (its `index.html` with the shortest path), else leaves the language out.
+The language switch appears when `translations` has two or more languages. For each other language it links the page with the same `slug` in that language, else that language's home page (its `index.html` with the shortest path), else leaves the language out. When no other language is left, there is no switch (e.g. a German-only site whose `translations` still holds an `en` entry).
 
 ## Overriding the theme
 
