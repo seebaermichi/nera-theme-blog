@@ -2,6 +2,12 @@
 
 All notable changes to `@nera-static/theme-blog` are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and the theme follows [semantic versioning](https://semver.org/) over its contract (see the README).
 
+## [1.0.1] - 2026-10-15
+
+### Changed
+
+-   The `feed-link.pug` seam is no longer "reserved for the planned" `@nera-static/plugin-feed`: the plugin is released, so the seam's comment and the README show its override, `include /vendor/plugin-feed/feed-link` (after `npx nera-feed`, with `origin` set in `config/app.yaml`). The seam itself is unchanged.
+
 ## [1.0.0] - 2026-10-14
 
 ### Added

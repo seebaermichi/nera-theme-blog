@@ -69,7 +69,7 @@ Plugin templates are not found automatically: publish each plugin's templates in
 | seam (`theme/views/…`) | where | in scope | typical override |
 |---|---|---|---|
 | `partials/head-extra.pug` | end of `<head>` | `app`, `meta` | canonical and alternate links |
-| `partials/feed-link.pug` | end of `<head>`, before `head-extra.pug` | `app`, `meta` | **reserved** for the `<link rel="alternate">` of the planned `@nera-static/plugin-feed` |
+| `partials/feed-link.pug` | end of `<head>`, before `head-extra.pug` | `app`, `meta` | plugin-feed: the `<link rel="alternate">` to the page language's feed |
 | `partials/nav-main.pug` | inside the header's `<nav>` | `app`, `meta` | plugin-navigation |
 | `partials/footer-extra.pug` | footer, before the legal links | `app`, `meta` | plugin-social-media-links |
 | `partials/scripts-extra.pug` | end of `<body>` | `app`, `meta` | your own `<script type="module">` |
@@ -81,6 +81,12 @@ Plugin templates are not found automatically: publish each plugin's templates in
 | `partials/tag-cloud.pug` | home and archive, after the posts | `app`, `meta` | plugin-tags |
 
 The overrides the blog starter uses, ready to copy:
+
+```pug
+//- theme/views/partials/feed-link.pug — npx nera-feed
+//- plugin-feed writes a feed only when config/app.yaml sets `origin`.
+include /vendor/plugin-feed/feed-link
+```
 
 ```pug
 //- theme/views/partials/nav-main.pug — npx nera-navigation

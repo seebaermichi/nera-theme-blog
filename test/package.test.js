@@ -31,7 +31,10 @@ describe('Package', () => {
 
     it('has the fields of §S2.1 with the exact values', () => {
         expect(pkg.name).toBe('@nera-static/theme-blog')
-        expect(pkg.version).toBe('1.0.0')
+        // The version is the newest CHANGELOG entry, so a release that forgets
+        // one of the two fails here.
+        const changelog = fs.readFileSync(path.join(ROOT, 'CHANGELOG.md'), 'utf-8')
+        expect(pkg.version).toBe(changelog.match(/^## \[(\d+\.\d+\.\d+)\]/m)[1])
         expect(pkg.type).toBe('module')
         expect(pkg.license).toBe('MIT')
         expect(pkg.description).toBeTruthy()
