@@ -41,3 +41,4 @@ build/
 test/site/public/
 .nera-cache/
 plans/
+.claude/.work-issue-active
