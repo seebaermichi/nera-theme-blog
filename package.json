@@ -1,6 +1,6 @@
 {
     "name": "@nera-static/theme-blog",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "description": "Nera theme for personal and team blogs — presentation only.",
     "type": "module",
     "license": "MIT",
@@ -18,7 +18,7 @@
         "./package.json": "./package.json"
     },
     "engines": {
-        "node": "^20.19.0 || >=22.0.0"
+        "node": ">=22.12.0"
     },
     "nera": {
         "generator": ">=4.15.0"

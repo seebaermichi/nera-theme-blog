@@ -44,7 +44,7 @@ describe('Package', () => {
         expect(pkg.keywords).toEqual(['nera', 'nera-theme'])
         expect(pkg.files).toEqual(['views', 'assets', 'config'])
         expect(pkg.exports).toEqual({ './package.json': './package.json' })
-        expect(pkg.engines).toEqual({ node: '^20.19.0 || >=22.0.0' })
+        expect(pkg.engines).toEqual({ node: '>=22.12.0' })
         expect(pkg.nera).toEqual({ generator: '>=4.15.0' })
         expect(pkg.publishConfig).toEqual({ access: 'public' })
         expect(pkg.repository.url).toBe('git+https://github.com/seebaermichi/nera-theme-blog.git')

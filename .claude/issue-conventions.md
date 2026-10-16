@@ -42,7 +42,7 @@ this way) to a theme; copy it for `nera-theme-business` and swap the names.
 ## Framework correctness
 
 - `package.json` exactly per §S2.1 with §S4.5's peers: `files` = `views`, `assets`,
-  `config`; `exports` only `./package.json`; `engines` `^20.19.0 || >=22.0.0`;
+  `config`; `exports` only `./package.json`; `engines` `>=22.12.0`;
   `nera.generator` `>=4.15.0` (no upper bound); every peer optional.
 - Tokens are `--theme-*` custom properties emitted from the merged
   `app.theme.config` (`config/theme.yaml`, §1c/§S2.5); a value containing `}` is
