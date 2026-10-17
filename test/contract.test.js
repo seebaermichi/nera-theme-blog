@@ -33,9 +33,13 @@ describe('Contract present', () => {
         for (const block of BLOCKS) expect(layout, block).toMatch(new RegExp(`^\\s*block ${block}$`, 'm'))
     })
 
-    it('defines the helpers of §S2.2', () => {
+    // A `- const` line, or a declaration at the first indent of a `-` block.
+    it('defines the helpers of §S2.2 and no other top-level name than themeBlog', () => {
         const helpers = read('partials/helpers.pug')
         for (const helper of HELPERS) expect(helpers, helper).toMatch(new RegExp(`function ${helper}\\(`))
+        const topLevel = [...allViews().matchAll(/^(?:- *| {4})(?:const|let|var|function) +([A-Za-z_$][\w$]*)/gm)]
+            .map((match) => match[1])
+        expect([...new Set(topLevel)].sort()).toEqual([...HELPERS, 'themeBlog'].sort())
     })
 
     it('ships no views/vendor/', () => {

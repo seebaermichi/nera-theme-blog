@@ -2,6 +2,13 @@
 
 All notable changes to `@nera-static/theme-blog` are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and the theme follows [semantic versioning](https://semver.org/) over its contract (see the README).
 
+## [1.1.1] - 2026-10-17
+
+### Fixed
+
+-   An `extra_css` entry with a tab, CR or LF anywhere is no longer linked. The URL parser drops those characters, so `"/\t/example.org/x.css"` passed the single-leading-slash check and still loaded `//example.org/x.css`, a third-party stylesheet. Every other entry is linked as before.
+-   The `lang-switch.pug` and `tokens.pug` partials no longer declare a top-level name (`languageLinks`, `themeTokenRule`), which could clash with the same name in an included plugin template; both now go through the theme's internal `themeBlog` object, as the theme's other partials do. The rendered pages are unchanged.
+
 ## [1.1.0] - 2026-10-16
 
 ### Changed

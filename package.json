@@ -1,6 +1,6 @@
 {
     "name": "@nera-static/theme-blog",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Nera theme for personal and team blogs — presentation only.",
     "type": "module",
     "license": "MIT",

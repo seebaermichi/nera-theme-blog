@@ -69,7 +69,7 @@ describe('Same origin only', () => {
         for (const { file, html } of pages(builds.overrides.public)) {
             const stylesheets = tags(html, 'link').filter((a) => attr(a, 'rel') === 'stylesheet').map((a) => attr(a, 'href'))
             expect(stylesheets, file).toEqual(['/css/theme.css', '/_nera/code-blocks.css'])
-            expect(html, file).not.toMatch(/example\.org\/[xyz]\.css/)
+            expect(html, file).not.toMatch(/example\.org\/[xyztrn]\.css/)
             expect(html, file).not.toContain('relative.css')
         }
     })

@@ -101,11 +101,31 @@
             return years
         }
 
+        // The design tokens as one `:root{…}` rule (§S2.5), '' when no token
+        // survives. A value is emitted only if it is a string or number
+        // without `<`, `>`, `{`, `}` or `;`, a group or token name only if it
+        // is made of letters, digits, `-` and `_`.
+        const tokenRule = () => {
+            const tokens = config.tokens || {}
+            const safe = (v) => ['string', 'number'].includes(typeof v) && !/[<>{};]/.test(String(v))
+            const safeName = (n) => /^[A-Za-z0-9_-]+$/.test(n)
+            const decls = []
+            for (const [group, values] of Object.entries(tokens)) {
+                if (!values || typeof values !== 'object' || !safeName(group)) continue
+                for (const [name, value] of Object.entries(values)) {
+                    if (safeName(name) && safe(value)) decls.push(`--theme-${group}-${name.replace(/_/g, '-')}:${value};`)
+                }
+            }
+            return decls.length ? `:root{${decls.join('')}}` : ''
+        }
+
         // `extra_css` entries that are root-absolute paths: one leading `/`,
-        // not `//` or `/\` (a browser reads both as another host).
+        // not `//` or `/\` (a browser reads both as another host), and no tab,
+        // CR or LF anywhere (the URL parser drops them, so `/<tab>/host` would
+        // become `//host`).
         const extraCss = () =>
             (Array.isArray(config.extra_css) ? config.extra_css : [])
-                .filter((entry) => typeof entry === 'string' && /^\/(?![/\\])/.test(entry))
+                .filter((entry) => typeof entry === 'string' && /^\/(?![/\\])[^\t\n\r]*$/.test(entry))
 
         // `footer_links` resolved for a language; an entry without a label or
         // without a path for that language is left out.
@@ -117,11 +137,13 @@
         // The language switch (§S2.8): every language of `app.translations`,
         // the page's own as `current`, each other one linked to the page with
         // the same `slug` in that language, else to that language's home.
-        // A language with neither is left out.
+        // A language with neither is left out. Empty, so the switch is not
+        // rendered, when there are fewer than two translations or fewer than
+        // two links.
         const languageLinks = (lang) => {
             const translations = app.translations || {}
             const slug = meta.slug
-            return Object.keys(translations)
+            const links = Object.keys(translations)
                 .map((code) => {
                     const name = (translations[code] && translations[code].language_name) || code.toUpperCase()
                     if (code === lang) return { code, name, current: true }
@@ -134,7 +156,8 @@
                     return target ? { code, name, href: target.meta.href } : null
                 })
                 .filter(Boolean)
+            return Object.keys(translations).length >= 2 && links.length >= 2 ? links : []
         }
 
-        return { toDate, homePage, posts, homePosts, postsByYear, extraCss, footerLinks, languageLinks }
+        return { toDate, homePage, posts, homePosts, postsByYear, tokenRule, extraCss, footerLinks, languageLinks }
     })()
