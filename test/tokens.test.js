@@ -21,14 +21,14 @@ describe('Tokens', () => {
     it('emits every default token, the accent included', () => {
         const style = styleOf(page(builds.default.public, 'index.html'))
         expect(style).toMatch(/^\s*:root\s*\{/)
-        expect(style).toMatch(declaration('color', 'accent', '#8c3a12'))
+        expect(style).toMatch(declaration('color', 'accent', '#000000'))
         for (const { group, name, value } of tokens) expect(style).toMatch(declaration(group, name, value))
     })
 
     it('emits a site override and keeps every other token at its default', () => {
         const style = styleOf(page(builds.overrides.public, 'index.html'))
         expect(style).toMatch(declaration('color', 'accent', '#006400'))
-        expect(style).not.toContain('#8c3a12')
+        expect(style).not.toContain('#000000')
         for (const { group, name, value } of tokens.filter((t) => t.name !== 'accent')) {
             expect(style).toMatch(declaration(group, name, value))
         }

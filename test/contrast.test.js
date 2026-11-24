@@ -38,7 +38,7 @@ describe('Contrast', () => {
     }
 
     it('matches the ratios recorded in §S4.4', () => {
-        const recorded = { 'text/bg': 15.2, 'text/surface': 13.6, 'muted/bg': 6.8, 'muted/surface': 6.1, 'accent/bg': 7.3, 'accent/surface': 6.5, 'accent_text/accent': 7.7, 'focus/bg': 6.5 }
+        const recorded = { 'text/bg': 18.4, 'text/surface': 16.9, 'muted/bg': 5.7, 'muted/surface': 5.2, 'accent/bg': 21, 'accent/surface': 19.3, 'accent_text/accent': 21, 'focus/bg': 18.4 }
         for (const [fg, bg] of PAIRS) {
             expect(contrast(color[fg], color[bg])).toBeCloseTo(recorded[`${fg}/${bg}`], 0)
         }
