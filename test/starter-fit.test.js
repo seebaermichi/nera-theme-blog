@@ -282,3 +282,17 @@ describe('Starter fit: external links open in a new tab', () => {
         expect(css).toMatch(/a\[target='_blank'\]::after\s*\{[^}]*content: '\\00a0\\2197'/)
     })
 })
+
+describe('Starter fit: pictures on a phone (measured at 390 px: cover 342×192, card 111×83)', () => {
+    const plain = css.replace(/\/\*[\s\S]*?\*\//g, '')
+    const rule = (selector) => [...plain.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+        .filter(([, prelude]) => prelude.split(',').map((x) => x.trim()).includes(selector))
+        .map(([, , body]) => body).join('\n')
+
+    it('sizes a picture by the img alone: no height on the media element or the picture', () => {
+        for (const selector of ['.post__media', '.post__media picture', '.post-card__media', '.post-card__media picture']) {
+            expect(rule(selector), selector).not.toMatch(/(^|[^-])height/)
+        }
+        expect(rule('.post-card__image')).toMatch(/aspect-ratio: 4 \/ 3/)
+    })
+})
