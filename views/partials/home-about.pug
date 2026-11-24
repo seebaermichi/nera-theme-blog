@@ -1,0 +1,14 @@
+//- The about block on the home (§S11.3, `author.*`): the initials in a
+//- mark, label t('About the author'), the name, the bio and a link
+//- t('Read more') to `author.href`. Not rendered without `author.name`.
+if themeBlog.author(pageLang({ meta })).name
+    section.home-about
+        span.home-about__mark(aria-hidden='true')= themeBlog.initials(themeBlog.author(pageLang({ meta })).name)
+        div
+            p= t('About the author')
+            h2= themeBlog.author(pageLang({ meta })).name
+            if themeBlog.author(pageLang({ meta })).bio
+                p= themeBlog.author(pageLang({ meta })).bio
+        if themeBlog.author(pageLang({ meta })).href
+            .home-about__links
+                a.button(href=themeBlog.author(pageLang({ meta })).href)= t('Read more')

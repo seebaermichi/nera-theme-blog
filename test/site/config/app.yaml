@@ -1,7 +1,10 @@
-# The acceptance site of @nera-static/theme-blog (ROADMAP-themes §S7): the blog
-# starter's page set in English and German, the theme used by local path.
+# The acceptance site of @nera-static/theme-blog (ROADMAP-themes §S7, §S15):
+# the sample content of design/blog-themes/blog/ ("Marginalia") in English
+# and German, extended by a series, facts, an author and a highlight tag; the
+# theme used by local path.
 lang: en
-name: Quiet Notes
+name: Marginalia
+origin: https://example.org
 robots: index,follow
 theme: ../..
 
@@ -10,7 +13,7 @@ translations:
         language_name: English
     de:
         language_name: Deutsch
-        # theme keys (§S2.6, §S4.3)
+        # theme keys (§S2.6, §S4.3, §S11.6)
         Skip to content: Zum Inhalt springen
         Main navigation: Hauptnavigation
         Language: Sprache
@@ -20,9 +23,14 @@ translations:
         Published: Veröffentlicht
         Updated: Aktualisiert
         By: Von
+        Latest post: Neuester Beitrag
+        Series: Serie
+        Part: Teil
+        About the author: Über die Autorin
+        Read more: Weiterlesen
+        posts: Beiträge
         # footer_links labels (config/theme.yaml)
         Imprint: Impressum
         Privacy: Datenschutz
-        # plugin keys: plugin-page-pagination, plugin-tags
+        # plugin keys: plugin-page-pagination
         Pagination: Blätternavigation
-        Read more: Weiterlesen

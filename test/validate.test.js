@@ -22,7 +22,7 @@ describe('Validates clean', () => {
         expect(json(builds.default.check)).toEqual({ ok: true, results: [] })
     })
 
-    it('runs with every rule of nera check on, the opt-in ones included', async () => {
+    it('runs with every rule of nera check on, the opt-in ones included, but a11y-target-blank', async () => {
         const require = createRequire(path.join(ROOT, 'package.json'))
         const validate = path.dirname(require.resolve('@nera-static/validate'))
         const { OUTPUT_RULES } = await import(path.join(validate, 'src', 'output-rules.js'))
@@ -31,7 +31,9 @@ describe('Validates clean', () => {
 
         expect(ids).toEqual(expect.arrayContaining(['a11y-link-lang', 'a11y-target-blank', 'a11y-reduced-motion', 'privacy-storage']))
         expect(Object.keys(config.rules).sort()).toEqual([...ids].sort())
-        for (const id of ids) expect(config.rules[id], id).toBe('error')
+        // The fixture opens external links in a new tab on purpose (ROADMAP-themes
+        // §S11.8), so the one rule that reports every target="_blank" is off.
+        for (const id of ids) expect(config.rules[id], id).toBe(id === 'a11y-target-blank' ? 'off' : 'error')
         expect(config.ignore).toBeUndefined()
     })
 })
@@ -55,10 +57,12 @@ describe('Without plugins', () => {
 
     it('renders every seam at its default: no plugin markup, nothing broken', () => {
         const built = pages(build.public)
-        expect(built.length).toBe(16)
+        expect(built.length).toBe(28)
         for (const { file, html } of built) {
             expect(html, file).not.toMatch(/class="(nav|tag-|page-pagination|social-media-links|nera-code|nera-image)/)
-            expect(html, file).not.toMatch(/<picture|<img/)
+            expect(html, file).not.toMatch(/<picture/)
+            // a Markdown image stays a plain <img> in the body; the theme renders none
+            expect(html.replace(/<div class="(post|page)__body[^"]*">[\s\S]*?<\/div>/g, ''), file).not.toMatch(/<img/)
             expect(countTags(html, 'h1'), file).toBe(1)
             for (const seam of ['post__media', 'post-card__media', 'post__tags', 'post__pagination']) {
                 for (const [, inner] of html.matchAll(new RegExp(`<div class="${seam}">([\\s\\S]*?)</div>`, 'g'))) {

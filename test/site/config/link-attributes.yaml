@@ -1,0 +1,6 @@
+# External links in page content open in a new tab (plugin-link-attributes,
+# ROADMAP-themes §S11.5, §S11.8). The theme marks them with an arrow;
+# nera check's a11y-target-blank is off for this site (config/validate.yaml).
+attributes:
+  - target="_blank"
+  - rel="noopener noreferrer"

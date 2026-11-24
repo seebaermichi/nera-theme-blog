@@ -1,6 +1,7 @@
 aria_label: Social media
-# No target="_blank" (nera check: a11y-target-blank).
-open_in_new_tab: false
+# External links open in a new tab, like the links in page content
+# (config/link-attributes.yaml, §S11.8).
+open_in_new_tab: true
 social_media_links:
-    - name: GitHub
-      href: https://github.com/seebaermichi/nera-theme-blog
+    - name: Mastodon
+      href: https://mastodon.social/@example

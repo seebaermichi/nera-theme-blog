@@ -80,10 +80,27 @@
                 .sort((a, b) => time(b) - time(a) || byHref(a, b))
         }
 
-        // The posts the home lists: the newest `blog.home_posts` (default 10).
+        // The large opening of the home (§S14 item 1): the newest post, or
+        // null. It is never counted in `blog.home_posts`.
+        const latestPost = (lang) => posts(lang)[0] || null
+
+        // The cards after the opening: the next `blog.home_posts` (default 9,
+        // so the home lists ten posts, as 1.x did by default).
         const homePosts = (lang) => {
             const count = Number(blog.home_posts)
-            return posts(lang).slice(0, Number.isInteger(count) && count >= 0 ? count : 10)
+            return posts(lang).slice(1).slice(0, Number.isInteger(count) && count >= 0 ? count : 9)
+        }
+
+        // `blog.featured_series` (§S11.3), '' when unset.
+        const featuredSeries = () => (typeof blog.featured_series === 'string' ? blog.featured_series : '')
+
+        // `blog.highlight_tag` (§S11.3), '' when unset, and the newest four
+        // posts whose frontmatter `tags` contain it.
+        const highlightTag = () => (typeof blog.highlight_tag === 'string' ? blog.highlight_tag : '')
+        const highlightPosts = (lang) => {
+            const tag = highlightTag()
+            if (!tag) return []
+            return posts(lang).filter((page) => Array.isArray(page.meta.tags) && page.meta.tags.includes(tag)).slice(0, 4)
         }
 
         // The posts of a language grouped by year, newest year first. A post
@@ -159,5 +176,47 @@
             return Object.keys(translations).length >= 2 && links.length >= 2 ? links : []
         }
 
-        return { toDate, homePage, posts, homePosts, postsByYear, tokenRule, extraCss, footerLinks, languageLinks }
+        // The parts of a series in a language (§S11.4): posts whose
+        // frontmatter `series` is `name`, ordered by `series_part`, then by
+        // date. Empty for an empty name.
+        const seriesParts = (name, lang) => {
+            if (typeof name !== 'string' || !name) return []
+            const part = (page) => {
+                const n = Number(page.meta.series_part)
+                return Number.isFinite(n) ? n : Number.MAX_SAFE_INTEGER
+            }
+            return posts(lang)
+                .filter((page) => page.meta.series === name)
+                .sort((a, b) => part(a) - part(b) || ((toDate(a.meta.createdAt) || 0) - (toDate(b.meta.createdAt) || 0)))
+        }
+
+        // The `author` block of config/theme.yaml (§S11.3), resolved for a
+        // language: `href` may be a path or a `{ <lang>: path }` map, like
+        // `footer_links`.
+        const author = (lang) => {
+            const value = config.author || {}
+            const text = (v) => (typeof v === 'string' ? v : '')
+            return { name: text(value.name), bio: text(value.bio), href: hrefFor(value.href, lang) || '' }
+        }
+
+        // The author of a page: its own `author`, else `author.name`.
+        const authorName = (page, lang) => (typeof page.meta.author === 'string' && page.meta.author) || author(lang).name
+
+        // The mark: the first letters of the name's first two words.
+        const initials = (name) =>
+            String(name || '').split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0].toUpperCase()).join('')
+
+        // `facts` of a post: at most four `{ label, value }` with both set.
+        const facts = (page) =>
+            (Array.isArray(page.meta.facts) ? page.meta.facts : [])
+                .filter((fact) => fact && fact.label !== undefined && fact.value !== undefined && fact.label !== null && fact.value !== null)
+                .slice(0, 4)
+
+        // Day and month without the year, for rows under a year heading.
+        const dayMonth = (value, lang) => {
+            const date = toDate(value)
+            return date ? date.toLocaleDateString(lang, { month: 'long', day: 'numeric', timeZone: 'UTC' }) : ''
+        }
+
+        return { toDate, homePage, posts, latestPost, homePosts, featuredSeries, highlightTag, highlightPosts, postsByYear, tokenRule, extraCss, footerLinks, languageLinks, seriesParts, author, authorName, initials, facts, dayMonth }
     })()

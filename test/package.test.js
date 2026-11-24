@@ -71,6 +71,9 @@ describe('Package', () => {
             expect(pkg.devDependencies[name]).toBe(range)
             expect(site.dependencies[name]).toBe(range)
         }
-        expect(pkg.devDependencies['@nera-static/nera']).toBe('^1.11.1')
+        expect(pkg.devDependencies['@nera-static/nera']).toBe('^1.28.0')
+        // the fixture's feed and new-tab links (§S11.1), not peers: the theme styles none of their markup
+        expect(pkg.devDependencies['@nera-static/plugin-feed']).toBe('^1.0.3')
+        expect(pkg.devDependencies['@nera-static/plugin-link-attributes']).toBe('^2.1.1')
     })
 })

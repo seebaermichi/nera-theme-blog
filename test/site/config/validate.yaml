@@ -14,7 +14,8 @@ rules:
     a11y-duplicate-id: error
     a11y-viewport-zoom: error
     a11y-link-lang: error
-    a11y-target-blank: error
+    # off: external links open in a new tab (§S11.8)
+    a11y-target-blank: "off"
     a11y-reduced-motion: error
     privacy-third-party: error
     privacy-insecure: error

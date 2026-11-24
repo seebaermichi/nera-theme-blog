@@ -19,6 +19,9 @@ const NERA = path.join(ROOT, 'node_modules', '@nera-static', 'nera', 'bin', 'ner
 const LINKED = ['views', 'assets', 'config', 'package.json', 'node_modules']
 const NOT_COPIED = new Set(['public', '.nera-cache', 'node_modules'])
 
+// The theme's peers (§S4.5, §S11.1). The fixture also uses plugin-feed (the
+// feed-link seam) and plugin-link-attributes (new-tab links, §S11.8), whose
+// markup the theme styles nothing of.
 export const PLUGINS = [
     '@nera-static/plugin-code-blocks',
     '@nera-static/plugin-images',
@@ -100,6 +103,11 @@ export const VARIANTS = {
         fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 4)}\n`)
         fs.rmSync(path.join(site, 'theme', 'views', 'vendor'), { recursive: true, force: true })
         fs.rmSync(path.join(site, 'theme', 'views', 'partials'), { recursive: true, force: true })
+    },
+    // The theme's default of blog.home_posts (9 after the opening).
+    defaults: (site) => {
+        const file = path.join(site, 'config', 'theme.yaml')
+        fs.writeFileSync(file, fs.readFileSync(file, 'utf-8').replace(/^ *home_posts: \d+\n/m, ''))
     },
     // Subdirectory deploy.
     sub: (site) => appendYaml(site, 'app.yaml', 'base_path: /sub'),

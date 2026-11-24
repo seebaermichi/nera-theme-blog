@@ -1,11 +1,20 @@
-//- One post in a list (§S4.1a). `item` is the post ({ content, meta }).
+//- One post in a list (§S4.1a, §S11.5). In scope: `item` (the post,
+//- { content, meta }), `position` (its place in the list; Plain draws no
+//- cover, so it is accepted and unused) and `featured` (true for the newest
+//- post, the home's large opening). A post with a frontmatter `image` shows
+//- it through the card-media seam; one without renders no media element.
+//- The date sits in `post-card__meta`, which the stylesheet puts in the
+//- margin on wide screens.
 li.post-list__item
-    article.post-card
-        .post-card__media
-            include card-media.pug
-        h3.post-card__title
-            a.post-card__link(href=item.meta.href)= item.meta.title
-        if isoDate(item.meta.createdAt)
-            time.post-card__date(datetime=isoDate(item.meta.createdAt))= formatDate(item.meta.createdAt, pageLang(item))
-        if item.meta.description
-            p.post-card__excerpt= item.meta.description
+    article.post-card(class=(typeof featured !== 'undefined' && featured) ? 'post-card--featured' : undefined)
+        if item.meta.image
+            .post-card__media
+                include card-media.pug
+        .post-card__body
+            h3.post-card__title
+                a.post-card__link(href=item.meta.href)= item.meta.title
+            if item.meta.description
+                p.post-card__excerpt= item.meta.description
+            if isoDate(item.meta.createdAt)
+                p.post-card__meta
+                    time.post-card__date(datetime=isoDate(item.meta.createdAt))= formatDate(item.meta.createdAt, pageLang(item))

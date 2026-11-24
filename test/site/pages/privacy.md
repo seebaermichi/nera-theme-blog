@@ -3,13 +3,13 @@ layout: pages/default.pug
 lang: en
 slug: privacy
 title: Privacy
-description: How Quiet Notes handles personal data.
+description: How Marginalia handles personal data.
 robots: noindex,follow
 ---
 
 ## Controller
 
-Quiet Notes, Example Street 1, 10115 Berlin, Germany, hello@example.org.
+Marginalia, Example Street 1, 10115 Berlin, Germany, hello@example.org.
 
 ## Server log files
 

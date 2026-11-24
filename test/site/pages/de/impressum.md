@@ -3,13 +3,13 @@ layout: pages/default.pug
 lang: de
 slug: imprint
 title: Impressum
-description: Anbieterkennzeichnung der Leisen Notizen.
+description: Anbieterkennzeichnung der Marginalia.
 robots: noindex,follow
 ---
 
 ## Angaben gemäß § 5 DDG
 
-Leise Notizen\
+Marginalia\
 Beispielstraße 1\
 10115 Berlin
 

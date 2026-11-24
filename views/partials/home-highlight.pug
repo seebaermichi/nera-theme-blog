@@ -1,0 +1,13 @@
+//- The highlight list on the home (§S11.3, `blog.highlight_tag`): the
+//- newest four posts whose frontmatter `tags` contain the tag, each a title
+//- with its date; the heading is the tag itself. No link to the tag page
+//- (its URL is plugin data). Not rendered when no post has the tag.
+if themeBlog.highlightPosts(pageLang({ meta })).length
+    section.home-highlight
+        h2= themeBlog.highlightTag()
+        ul
+            each item in themeBlog.highlightPosts(pageLang({ meta }))
+                li
+                    a(href=item.meta.href)= item.meta.title
+                    if isoDate(item.meta.createdAt)
+                        time(datetime=isoDate(item.meta.createdAt))= formatDate(item.meta.createdAt, pageLang(item))

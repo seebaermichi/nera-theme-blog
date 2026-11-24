@@ -5,3 +5,13 @@ footer_links:
       href: { en: /imprint.html, de: /de/impressum.html }
     - label: Privacy
       href: { en: /privacy.html, de: /de/datenschutz.html }
+blog:
+    # the newest post is the opening and not counted: five more, as the
+    # reference's six posts
+    home_posts: 5
+    featured_series: A small website
+    highlight_tag: tools
+author:
+    name: Ada Example
+    bio: Edits technical documentation by day. Writes here about once a month, in five hundred words or fewer.
+    href: { en: /about.html, de: /de/ueber-uns.html }

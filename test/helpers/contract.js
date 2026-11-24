@@ -1,5 +1,5 @@
-// The theme's contract as ROADMAP-themes.md states it (§S2, §S4), in one
-// place for the tests.
+// The theme's contract as ROADMAP-themes.md states it (§S2, §S4, and the
+// shared contract of the blog themes, §S11, §S12), in one place for the tests.
 
 export const VIEWS = [
     'layouts/layout.pug',
@@ -13,7 +13,14 @@ export const VIEWS = [
     // extra partials the theme adds, contract too (README)
     'partials/page-header.pug',
     'partials/post-card.pug',
+    // the home blocks of §S11.5, shared with Stack, Ansitz and Umwege
+    'partials/home-series.pug',
+    'partials/home-highlight.pug',
+    'partials/home-about.pug',
 ]
+
+// Withdrawn by the revision of 2026-11-23 (§S10); hero-media is Ansitz's own.
+export const WITHDRAWN_SEAMS = ['partials/thumb-media.pug', 'partials/hero-media.pug']
 
 export const SEAMS = [
     'partials/head-extra.pug',
@@ -41,7 +48,23 @@ export const TOKENS = {
     size: ['base', 'measure', 'width', 'radius', 'space'],
 }
 
-export const THEME_KEYS = ['label', 'tokens', 'extra_css', 'footer_links', 'blog']
+// §S13-style defaults of the look "Plain" (§S4.4); size.base is the body
+// text size, so width and measure are 800 px and 612 px (§S11.3).
+export const TOKEN_DEFAULTS = {
+    color: {
+        bg: '#ffffff',
+        surface: '#f5f5f4',
+        text: '#141414',
+        muted: '#676767',
+        accent: '#000000',
+        accent_text: '#ffffff',
+        border: '#e4e4e2',
+        focus: '#141414',
+    },
+    size: { base: '1.0625rem', measure: '38.25rem', width: '50rem', radius: '0.375rem', space: '1.5rem' },
+}
+
+export const THEME_KEYS = ['label', 'tokens', 'extra_css', 'footer_links', 'blog', 'author']
 
 export const T_KEYS = [
     // shared (§S2.6)
@@ -55,6 +78,13 @@ export const T_KEYS = [
     'Published',
     'Updated',
     'By',
+    // §S11.6 (Plain renders no heading over the tag cloud, so no `Tags`)
+    'Latest post',
+    'Series',
+    'Part',
+    'About the author',
+    'Read more',
+    'posts',
 ]
 
 export const SHELL_CLASSES = [
@@ -111,12 +141,65 @@ export const BLOG_CLASSES = [
     'tag-page',
 ]
 
-export const PUBLIC_CLASSES = [...SHELL_CLASSES, ...BLOG_CLASSES]
+// §S12: the classes the four blog themes share, as far as Plain renders
+// their element.
+export const SHARED_CLASSES = [
+    'button',
+    'post-card--featured',
+    'post-card__body',
+    'post-card__meta',
+    'post__series',
+    'post-author',
+    'post-author__mark',
+    'post-author__name',
+    'post-facts',
+    'post-facts__item',
+    'post-facts__label',
+    'post-facts__value',
+    'post-series',
+    'post-series__title',
+    'post-series__list',
+    'post-series__item',
+    'post-series__item--current',
+    'home-series',
+    'home-highlight',
+    'home-about',
+    'home-about__mark',
+    'home-about__links',
+    'post-archive__count',
+]
+
+// Classes of §S12 whose element Plain does not render: its home opens with
+// the page header of §S4.1, not a hero (so no hero and no primary button),
+// and it shows no location, place, exposure, cover or pass.
+export const NOT_RENDERED = [
+    'home-hero',
+    'home-hero__inner',
+    'home-hero__title',
+    'home-hero__lead',
+    'home-hero__actions',
+    'home-hero__aside',
+    'button--primary',
+    'post-card__location',
+    'post-card__facts',
+    'post__location',
+    'home-pass',
+    'home-pass__facts',
+    'home-statement',
+    'home-hero__image',
+    'post__image-note',
+    'post-card__cover',
+]
+
+// Withdrawn by the revision of 2026-11-23 (§S12).
+export const WITHDRAWN_CLASSES = ['callout', 'duo', 'bw', 'post-nav', 'post-card__reading-time', 'post__reading-time', 'post-thumb__image', 'post-facts__note', 'post-route', 'home-pass__route']
+
+export const PUBLIC_CLASSES = [...SHELL_CLASSES, ...BLOG_CLASSES, ...SHARED_CLASSES]
 
 // §S4.5 with the peer floors decided for 1.0.0 (§S8, last paragraph).
 export const PLUGIN_CLASSES = {
     '@nera-static/plugin-tags': {
-        range: '^3.3.0',
+        range: '^3.4.1',
         classes: [
             'tag-cloud',
             'tag-cloud__item',
@@ -148,7 +231,7 @@ export const PLUGIN_CLASSES = {
         classes: ['nera-code', 'nera-code-scope'],
     },
     '@nera-static/plugin-images': {
-        range: '^1.0.2',
+        range: '^1.0.3',
         classes: ['nera-image', 'nera-image__caption'],
     },
     '@nera-static/plugin-navigation': {

@@ -17,7 +17,11 @@ describe('Every built page', () => {
                 expect(countTags(html, 'main'), file).toBe(1)
                 expect(html, file).toMatch(/<main class="site-main" id="main">/)
                 expect(html, file).toMatch(/<body><a class="skip-link" href="#main">/)
-                expect(html, file).not.toMatch(/target="_blank"/)
+                // only external links open a new tab, and always with rel="noopener noreferrer"
+                for (const attrs of tags(html, 'a').filter((a) => /target="_blank"/.test(a))) {
+                    expect(attr(attrs, 'href'), file).toMatch(/^https?:\/\//)
+                    expect(attr(attrs, 'rel'), file).toMatch(/noopener/)
+                }
             }
         })
 
@@ -29,15 +33,15 @@ describe('Every built page', () => {
     }
 
     it('has a language switch with hreflang and a matching lang on every link', () => {
-        const html = page(builds.default.public, 'posts/tokens.html')
+        const html = page(builds.default.public, 'posts/door-closed.html')
         const links = tags(html, 'a').filter((a) => /lang-switch__link/.test(a))
         expect(links.length).toBe(1)
-        expect(attr(links[0], 'href')).toBe('/de/posts/tokens.html')
+        expect(attr(links[0], 'href')).toBe('/de/posts/door-closed.html')
         expect(attr(links[0], 'hreflang')).toBe('de')
         expect(attr(links[0], 'lang')).toBe('de')
         expect(html).toContain('<span class="lang-switch__link" aria-current="true" lang="en">English</span>')
         // a tag page has no slug twin: the switch falls back to the other home
-        const tagLinks = tags(page(builds.default.public, 'tags/css.html'), 'a').filter((a) => /lang-switch__link/.test(a))
+        const tagLinks = tags(page(builds.default.public, 'tags/tools.html'), 'a').filter((a) => /lang-switch__link/.test(a))
         expect(attr(tagLinks[0], 'href')).toBe('/de/index.html')
     })
 
@@ -52,11 +56,13 @@ describe('Every built page', () => {
             for (const attrs of tags(html, 'nav')) expect(attr(attrs, 'aria-label'), file).toBeTruthy()
         }
         const de = page(builds.default.public, 'de/index.html')
-        for (const text of ['Zum Inhalt springen', 'aria-label="Hauptnavigation"', 'aria-label="Sprache"', 'aria-label="Rechtliches"', 'Neueste Beiträge', 'Alle Beiträge', '>Impressum<', '>Datenschutz<']) {
+        for (const text of ['Zum Inhalt springen', 'aria-label="Hauptnavigation"', 'aria-label="Sprache"', 'aria-label="Rechtliches"', 'Neueste Beiträge', 'Alle Beiträge', 'Neuester Beitrag', 'Serie', 'Weiterlesen', 'Über die Autorin', '>Impressum<', '>Datenschutz<']) {
             expect(de).toContain(text)
         }
-        const post = page(builds.default.public, 'de/posts/tokens.html')
-        for (const text of ['Veröffentlicht', 'Aktualisiert', 'Von']) expect(post).toContain(text)
+        const post = page(builds.default.public, 'de/posts/door-closed.html')
+        for (const text of ['Veröffentlicht', 'Aktualisiert', 'Von', 'aria-label="Blätternavigation"']) expect(post).toContain(text)
+        expect(page(builds.default.public, 'de/posts/small-site-hosting.html')).toContain('Serie: A small website · Teil 2')
+        expect(page(builds.default.public, 'de/archiv.html')).toMatch(/<span class="post-archive__count">\d+ Beiträge<\/span>/)
     })
 
     it('ships no .js file in the package folders', () => {

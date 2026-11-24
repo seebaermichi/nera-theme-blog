@@ -3,13 +3,13 @@ layout: pages/default.pug
 lang: de
 slug: privacy
 title: Datenschutz
-description: Wie die Leisen Notizen mit personenbezogenen Daten umgehen.
+description: Wie die Marginalia mit personenbezogenen Daten umgehen.
 robots: noindex,follow
 ---
 
 ## Verantwortlicher
 
-Leise Notizen, Beispielstraße 1, 10115 Berlin, hello@example.org.
+Marginalia, Beispielstraße 1, 10115 Berlin, hello@example.org.
 
 ## Server-Logdateien
 

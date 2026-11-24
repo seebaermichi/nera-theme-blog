@@ -1,17 +1,34 @@
-//- The front page (§S4.1): header, body, the newest `blog.home_posts` posts,
-//- a link to the archive (`archive_href`), the tag-cloud seam.
+//- The front page (§S4.1, §S11.7, Plain): the header (title and lead), the
+//- body when there is one, the newest post large under t('Latest post')
+//- (the opening, never counted), the next `blog.home_posts` posts under
+//- t('Recent posts') with the link t('All posts'), the featured series, the
+//- highlight list, the about block and the tag-cloud seam.
 extends ../layouts/layout.pug
 
 block main
     include ../partials/page-header.pug
-    .page__body
-        != content
-    section.post-list
-        h2.post-list__title= t('Recent posts')
-        if themeBlog.homePosts(pageLang({ meta })).length
+    if String(content || '').trim()
+        .page__body
+            != content
+    if themeBlog.latestPost(pageLang({ meta }))
+        section.post-list
+            h2.post-list__title= t('Latest post')
             ol.post-list__items
-                each item in themeBlog.homePosts(pageLang({ meta }))
+                each item in [themeBlog.latestPost(pageLang({ meta }))]
+                    - const position = 0
+                    - const featured = true
                     include ../partials/post-card.pug
-        if meta.archive_href
-            a.post-list__more(href=meta.archive_href)= t('All posts')
+    if themeBlog.homePosts(pageLang({ meta })).length
+        section.post-list
+            h2.post-list__title= t('Recent posts')
+            ol.post-list__items
+                each item, index in themeBlog.homePosts(pageLang({ meta }))
+                    - const position = index + 1
+                    - const featured = false
+                    include ../partials/post-card.pug
+            if meta.archive_href
+                a.post-list__more(href=meta.archive_href)= t('All posts')
+    include ../partials/home-series.pug
+    include ../partials/home-highlight.pug
+    include ../partials/home-about.pug
     include ../partials/tag-cloud.pug
