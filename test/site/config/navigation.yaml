@@ -7,6 +7,8 @@ elements:
           name: Archive
         - href: /about.html
           name: About
+        - href: /search.html
+          name: Search
     main_de:
         - href: /de/index.html
           name: Start
@@ -14,3 +16,5 @@ elements:
           name: Archiv
         - href: /de/ueber-uns.html
           name: Über mich
+        - href: /de/suche.html
+          name: Suche

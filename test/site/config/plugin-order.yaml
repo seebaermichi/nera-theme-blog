@@ -1,0 +1,4 @@
+# plugin-search last, so the tag pages plugin-tags adds are in the index.
+plugin-order:
+    - end:
+          - plugin-search

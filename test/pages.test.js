@@ -1,18 +1,22 @@
 // Per-page guarantees of §S2.7 on every built page of every variant: no
-// script, the right <html lang>, one <h1>, one main#main, a skip link first;
-// and no JavaScript in the package.
+// script (but the fixture's own search pages, test/search.test.js), the right
+// <html lang>, one <h1>, one main#main, a skip link first; and no JavaScript
+// in the package.
 import path from 'path'
 import { describe, expect, inject, it } from 'vitest'
 import { ROOT } from './helpers/site.js'
 import { attr, countTags, listFiles, page, pages, tags } from './helpers/html.js'
 
 const builds = inject('builds')
+// The fixture loads plugin-search's script on its search pages, through the
+// scripts-extra.pug seam; the theme itself adds none.
+const SEARCH_PAGES = new Set(['search.html', path.join('de', 'suche.html')])
 
 describe('Every built page', () => {
     for (const name of ['default', 'overrides', 'noplugins', 'sub']) {
-        it(`${name}: has no <script>, one <h1>, one main#main and the skip link first`, () => {
+        it(`${name}: has no <script> but on the search pages, one <h1>, one main#main and the skip link first`, () => {
             for (const { file, html } of pages(builds[name].public)) {
-                expect(countTags(html, 'script'), file).toBe(0)
+                expect(countTags(html, 'script'), file).toBe(SEARCH_PAGES.has(file) ? 1 : 0)
                 expect(countTags(html, 'h1'), file).toBe(1)
                 expect(countTags(html, 'main'), file).toBe(1)
                 expect(html, file).toMatch(/<main class="site-main" id="main">/)

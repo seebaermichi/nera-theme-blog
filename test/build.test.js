@@ -23,7 +23,7 @@ describe('Builds clean', () => {
             .filter((file) => frontmatter(path.join(pagesDir, file)).layout)
             .map((file) => `/${file.split(path.sep).join('/').replace(/\.md$/, '.html')}`)
 
-        expect(authored.length).toBe(28)
+        expect(authored.length).toBe(30)
         for (const href of authored) expect(created, href).toContain(href)
         // ...and nothing written twice; the rest are plugin-tags' tag pages
         expect(new Set(created).size).toBe(created.length)

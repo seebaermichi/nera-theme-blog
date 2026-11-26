@@ -1,0 +1,7 @@
+# One index per language (search-index.json, search-index.de.json), so the
+# German search page finds German pages only.
+group_by_lang: true
+# The search page brings its own <h1> (partials/page-header.pug).
+show_title: false
+# The script comes through the scripts-extra.pug seam, on the search page only.
+include_script: false
