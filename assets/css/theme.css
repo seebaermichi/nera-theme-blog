@@ -309,7 +309,8 @@ span.lang-switch__link {
 .post__body,
 .post__footer,
 .tag-cloud,
-.tag-overview__header {
+.tag-overview__header,
+.search {
     max-width: var(--theme-size-measure, 38.25rem);
 }
 
@@ -888,6 +889,98 @@ span.lang-switch__link {
     content: '\00a0\2192' / '';
 }
 
+/* --- plugin-search: the site's own search page ------------------------- */
+
+/* No colour of its own: the input has a hairline in the text colour (it is
+   the control's only edge, so it needs 3:1, WCAG 1.4.11) and the global
+   focus outline; the results read like the archive's rows. */
+.search__input {
+    display: block;
+    width: 100%;
+    padding: 0.6375rem 0.7969rem;
+    background: var(--theme-color-bg, #ffffff);
+    color: var(--theme-color-text, #141414);
+    border: 1px solid var(--theme-color-text, #141414);
+    border-radius: var(--theme-size-radius, 0.375rem);
+    font: inherit;
+    appearance: none;
+}
+
+.search__input::placeholder {
+    color: var(--theme-color-muted, #676767);
+    opacity: 1;
+}
+
+/* Safari's inset for the magnifier it no longer draws */
+.search__input::-webkit-search-decoration {
+    appearance: none;
+}
+
+/* the field's clear button: a cross in the text colour, not the browser's
+   blue. Drawn from two gradients, so the file gains no url(). */
+.search__input::-webkit-search-cancel-button {
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-left: 0.6375rem;
+    background:
+        linear-gradient(45deg, transparent calc(50% - 1px), var(--theme-color-text, #141414) calc(50% - 1px), var(--theme-color-text, #141414) calc(50% + 1px), transparent calc(50% + 1px)),
+        linear-gradient(-45deg, transparent calc(50% - 1px), var(--theme-color-text, #141414) calc(50% - 1px), var(--theme-color-text, #141414) calc(50% + 1px), transparent calc(50% + 1px));
+    cursor: pointer;
+    appearance: none;
+}
+
+/* before typing and without a match the list takes no space */
+.search__results {
+    margin: calc(var(--theme-size-space, 1.5rem) * 1.5) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.search__results:empty {
+    display: none;
+}
+
+.search__item {
+    margin: 0 0 0.9563rem;
+}
+
+.search__item + .search__item {
+    margin-top: 0;
+}
+
+.search__link {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.search__link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+.search__description {
+    margin: 0.2656rem 0 0;
+    color: var(--theme-color-muted, #676767);
+    font-size: 0.9563rem;
+}
+
+/* a match: the text colour and bold, no background */
+.search__highlight {
+    color: var(--theme-color-text, #141414);
+    font-weight: 600;
+}
+
+/* search.js keeps the message in the DOM, hidden and empty, while there are
+   hits; its margin applies only while it says something */
+.search__empty {
+    margin: calc(var(--theme-size-space, 1.5rem) * 1.5) 0 0;
+    color: var(--theme-color-muted, #676767);
+}
+
+.search__empty:empty {
+    display: none;
+}
+
 /* --- plugin-code-blocks: the theme's tokens on its custom properties ----- */
 
 .nera-code-scope,
@@ -1009,7 +1102,8 @@ span.lang-switch__link {
     .post__body,
     .post__footer,
     .tag-cloud,
-    .tag-overview__header {
+    .tag-overview__header,
+    .search {
         margin-left: calc(var(--theme-size-width, 50rem) - var(--theme-size-measure, 38.25rem));
     }
 

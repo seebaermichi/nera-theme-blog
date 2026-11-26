@@ -2,6 +2,12 @@
 
 All notable changes to `@nera-static/theme-blog` are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and the theme follows [semantic versioning](https://semver.org/) over its contract (see the README).
 
+## [2.1.0] - 2026-11-26
+
+### Added
+
+-   `@nera-static/plugin-search` `^2.4.0` as an optional peer dependency. The theme styles its classes `search`, `search__input`, `search__results`, `search__item`, `search__link`, `search__description`, `search__highlight` and `search__empty` in the look Plain, without colour: the input with a hairline in the text colour and its clear button as a cross in the same colour, the results like the archive's rows, a match bold in the text colour, the "no results" message muted; the list and the message take no space while empty. The theme still ships no JavaScript and no search page: the README's new "Search" section shows the page type, the `scripts-extra.pug` override, `config/search.yaml`, `config/plugin-order.yaml` and the menu item for your site.
+
 ## [2.0.0] - 2026-11-24
 
 The look "Plain" and the contract the theme now shares with `@nera-static/theme-stack`, `theme-ansitz` and `theme-umwege`, so a blog moves between the four by changing `theme:` alone.

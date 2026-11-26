@@ -37,6 +37,11 @@ describe('Contrast', () => {
         })
     }
 
+    // WCAG 1.4.11: the search input's only edge is a text-coloured hairline
+    it('the search input edge (text on bg) reaches 3:1 as a non-text contrast', () => {
+        expect(contrast(color.text, color.bg)).toBeGreaterThanOrEqual(3)
+    })
+
     it('matches the ratios recorded in §S4.4', () => {
         const recorded = { 'text/bg': 18.4, 'text/surface': 16.9, 'muted/bg': 5.7, 'muted/surface': 5.2, 'accent/bg': 21, 'accent/surface': 19.3, 'accent_text/accent': 21, 'focus/bg': 18.4 }
         for (const [fg, bg] of PAIRS) {
