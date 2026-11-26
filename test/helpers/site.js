@@ -27,6 +27,7 @@ export const PLUGINS = [
     '@nera-static/plugin-images',
     '@nera-static/plugin-navigation',
     '@nera-static/plugin-page-pagination',
+    '@nera-static/plugin-search',
     '@nera-static/plugin-social-media-links',
     '@nera-static/plugin-tags',
 ]

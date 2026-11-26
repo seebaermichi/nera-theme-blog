@@ -249,6 +249,22 @@ export const PLUGIN_CLASSES = {
             'social-media-links__label',
         ],
     },
+    '@nera-static/plugin-search': {
+        range: '^2.4.0',
+        // search__title is not styled: the fixture's search page brings its
+        // own page header and sets show_title: false. search__item, __link,
+        // __description, __highlight and __empty are created by search.js.
+        classes: [
+            'search',
+            'search__input',
+            'search__results',
+            'search__item',
+            'search__link',
+            'search__description',
+            'search__highlight',
+            'search__empty',
+        ],
+    },
 }
 
 // plugin-code-blocks' custom properties, mapped onto the theme's tokens (§S4.4).

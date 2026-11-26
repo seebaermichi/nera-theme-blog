@@ -32,6 +32,7 @@
         "@nera-static/plugin-images": "^1.0.3",
         "@nera-static/plugin-navigation": "^3.1.0",
         "@nera-static/plugin-page-pagination": "^2.4.0",
+        "@nera-static/plugin-search": "^2.4.0",
         "@nera-static/plugin-social-media-links": "^2.3.0",
         "@nera-static/plugin-tags": "^3.4.1"
     },
@@ -46,6 +47,9 @@
             "optional": true
         },
         "@nera-static/plugin-page-pagination": {
+            "optional": true
+        },
+        "@nera-static/plugin-search": {
             "optional": true
         },
         "@nera-static/plugin-social-media-links": {
@@ -63,6 +67,7 @@
         "@nera-static/plugin-link-attributes": "^2.1.1",
         "@nera-static/plugin-navigation": "^3.1.0",
         "@nera-static/plugin-page-pagination": "^2.4.0",
+        "@nera-static/plugin-search": "^2.4.0",
         "@nera-static/plugin-social-media-links": "^2.3.0",
         "@nera-static/plugin-tags": "^3.4.1",
         "eslint": "^10.12.0",
