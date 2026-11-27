@@ -25,7 +25,8 @@
     },
     "scripts": {
         "lint": "eslint .",
-        "test": "vitest"
+        "test": "vitest",
+        "prepare": "husky"
     },
     "peerDependencies": {
         "@nera-static/plugin-code-blocks": "^1.2.1",
@@ -71,6 +72,7 @@
         "@nera-static/plugin-social-media-links": "^2.3.0",
         "@nera-static/plugin-tags": "^3.4.1",
         "eslint": "^10.12.0",
+        "husky": "^9.1.7",
         "vitest": "^5.0.3"
     },
     "publishConfig": {
