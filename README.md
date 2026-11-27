@@ -3,7 +3,11 @@
 [![Test](https://github.com/seebaermichi/nera-theme-blog/actions/workflows/test.yml/badge.svg)](https://github.com/seebaermichi/nera-theme-blog/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/@nera-static/theme-blog)](https://www.npmjs.com/package/@nera-static/theme-blog)
 
+[![Live demo: Plain](https://img.shields.io/badge/%E2%96%B6%20Live%20demo-Plain-d97706?style=for-the-badge)](https://nera.js.org/themes/blog/plain/)
+
 A theme for the [Nera](https://github.com/seebaermichi/nera) static site generator, made for personal and team blogs: reading comfort first, posts by date, tags, prev/next and code blocks. It is presentation only — Pug views, one stylesheet and a `config/theme.yaml` of design tokens — and carries the Nera blog starter.
+
+🔗 **Live demo:** [nera.js.org/themes/blog/plain/](https://nera.js.org/themes/blog/plain/)
 
 📖 **Documentation:** [nera.js.org](https://nera.js.org)
 
